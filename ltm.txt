@@ -1,0 +1,29 @@
+\begin{equation}
+    \min_{\beta\in\mathbb{R}^p}\frac{1}{n}\Bigl|\Bigl|y-X\beta\Bigr|\Bigr|_2^2 + \lambda\Bigl|\Bigl|\beta\Bigr|\Bigr|_2^2
+\end{equation}
+
+To find the optimal parameters, we first start by rewriting the expression:
+\begin{equation}
+    \frac{1}{n}||y-X\beta||_2^2 + \lambda||\beta||_2^2 = \frac{1}{n}(y-X\beta)^T(y-X\beta)+\lambda\beta^T\beta
+\end{equation}
+We can then take the partial derivative and set it equal to zero to minimize the expression. (and multiply both sides by $n$)
+\begin{equation}
+    \begin{split}
+        \frac{\partial}{\partial \beta} [(y-X\beta)^T(y-X\beta)+\lambda\beta^T\beta) = 0 \\ 
+        \frac{\partial}{\partial \beta} ((y-X\beta)^T(y-X\beta)) + \frac{\partial}{\partial \beta} (\lambda\beta^T\beta) = 0 \\
+        -2(y-X\beta)^TX + \lambda(2\beta) = 0
+    \end{split}
+\end{equation}
+We then rewrite the expression to get the result in the desired form:
+\begin{equation}
+    \begin{split}
+        -2(y-X\beta)^TX + \lambda(2\beta) = 0\\
+        2(y-X\beta)^TX = \lambda(2\beta)\\
+        (2y-2X\beta)^TX = \lambda(2\beta)\\
+        X^T(2y-2X\beta) = \lambda(2\beta)\\
+        2X^Ty-2X^TX\beta = \lambda(2\beta)\\
+        X^Ty-X^TX\beta = \lambda\beta\\
+        X^Ty = X^TX\beta + \lambda\beta = \beta(X^TX+\lambda I)\\
+        \underline{\underline{\beta = (X^TX+\lambda I)^{-1}X^Ty}}
+    \end{split}
+\end{equation}
