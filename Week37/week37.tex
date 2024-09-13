@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\title{FYS-STK Week 37}
+\author{Harald Tverdal}
+\date{August 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Week 37}
+\subsection{Exercise 1}
+\subsubsection{1}
+\begin{equation}
+    y_i = X_{i,*}\beta + \epsilon_i
+\end{equation}
+Taking the expectation value of $y_i$ gives:
+\begin{equation}
+    \mathbb{E}[y_i] = \mathbb{E}[X_{i,*}\beta + \epsilon_i] = \mathbb{E}[X_{i,*}\beta] + \mathbb{E}[\epsilon_i]
+\end{equation}
+We know $\mathbb{E}[\epsilon_i] = 0$, which gives:
+\begin{equation}
+    \mathbb{E}[y_i] = \mathbb{E}[X_{i,*}\beta] = X_{i,*}\beta
+\end{equation}
+This is because $X_{i,*}\beta$`s expectation value is equal to itself, as it is independent of the probability distribution of $\epsilon$.
+
+\subsubsection{2}
+\begin{equation}
+    Var(y_i) = \mathbb{E}\Big[[y_i - \mathbb{E}[y_i]]^2\Big]
+\end{equation}
+We know 
+\begin{equation}
+    \mathbb{E}\Big[[y_i - \mathbb{E}[y_i]]^2\Big] = \mathbb{E}[y_i^2]-\mathbb{E}[y_i]^2
+\end{equation}
+Using $\mathbb{E}[y_i] = X_{i,*}\beta$ and $y_i = X_{i,*}\beta + \epsilon_i$ for the expression, we get:
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[(X_{i,*}\beta + \epsilon_i)(X_{i,*}\beta + \epsilon_i)] - (X_{i,*}\beta)^2\\
+        = \mathbb{E}[(X_{i,*}\beta)^2 + (2\epsilon_iX_{i,*}\beta) + \epsilon_i^2] - (X_{i,*}\beta)^2\\
+        = \mathbb{E}[(X_{i,*}\beta)^2] + \mathbb{E}[(2\epsilon_iX_{i,*}\beta] + \mathbb{E}[\epsilon_i]^2 - (X_{i,*}\beta)^2
+    \end{split}
+\end{equation}
+Where $\mathbb{E}[(X_{i,*}\beta)^2] - (X_{i,*}\beta)^2 = 0$ and $\mathbb{E}[\epsilon_i] = 0$, which means we end up with:
+\begin{equation}
+    \mathbb{E}[\epsilon_i]^2 = \sigma^2
+\end{equation}
+
+
+
+\subsubsection{3}
+Using the expression $\hat{\beta} = (X^TX)^{-1}X^Ty$, we get:
+\begin{equation}
+    \begin{split}
+        \mathbb{E}[\hat{\beta}] = \mathbb{E}[(X^TX)^{-1}X^Ty] = (X^TX)^{-1}X^T\mathbb{E}[y]\\ 
+        (X^TX)^{-1}X^TX\beta = \beta
+    \end{split}
+\end{equation}
+
+\subsubsection{4}
+\begin{equation}
+    Var(\hat{\beta}) = \mathbb{E}\Bigl[(\hat{\beta} - \mathbb{E}[\hat{\beta]})(\hat{\beta} - \mathbb{E}[\hat{\beta]})^T\Bigr]
+\end{equation}
+We know $\hat{\beta} = (X^TX)^{-1}X^Ty$ and $E[\hat{\beta}] = \beta$:
+\begin{equation}
+\begin{split}
+    Var(\hat{\beta}) = \mathbb{E}\Bigl[((X^TX)^{-1}X^Ty - \beta)((X^TX)^{-1}X^Ty - \beta)^T\Bigr]\\
+    = \mathbb{E}\Bigl[((X^TX)^{-1}X^Ty - \beta)(y^TX(X^TX)^{-1} - \beta^T)\Bigr]\\
+    = \mathbb{E}\Bigl[(X^TX)^{-1}X^Tyy^TX(X^TX)^{-1} - \beta\beta^T - \beta\beta^T + \beta\beta^T\Bigr]\\
+    = [(X^TX)^{-1}X^T\mathbb{E}\Bigl[yy^T\Bigr]X(X^TX)^{-1} - \beta\beta^T\\
+\end{split}
+\end{equation}
+From previously we know $E[y^2] = E[y]^2 + \sigma^2$:
+\begin{equation}
+\begin{split}
+    (X^TX)^{-1}X^T\mathbb{E}\Bigl[yy^T\Bigr]X(X^TX)^{-1} - \beta\beta^T\\
+    = (X^TX)^{-1}X^T(X\beta\beta^TX^T + \sigma^2)X(X^TX)^{-1} - \beta\beta^T\\
+    = (X^TX)^{-1}X^T(X\beta\beta^TX^T + \sigma^2)X(X^TX)^{-1} - \beta\beta^T\\
+    = [(X^TX)^{-1}X^T X\beta\beta^TX^T + (X^TX)^{-1}X^T \sigma^2]X(X^TX)^{-1} - \beta\beta^T\\
+    = [\beta\beta^TX^T + (X^TX)^{-1}X^T \sigma^2]X(X^TX)^{-1} - \beta\beta^T\\
+    = \beta\beta^TX^TX(X^TX)^{-1} + (X^TX)^{-1}X^TX \sigma^2(X^TX)^{-1} - \beta\beta^T\\
+    = [\beta\beta^T + \sigma^2 ((X^TX)^{-1}] - \beta\beta^T\\
+    = \sigma^2 ((X^TX)^{-1}\\
+\end{split}
+\end{equation}
+
+\subsection{Exercise 2}
+\subsubsection{1}
+\begin{equation}
+\begin{split}
+    \mathbb{E}[\hat{\beta}_{Ridge}] = \mathbb{E}[(X^TX + \lambda I)^{-1}X^Ty]\\
+    = (X^TX + \lambda I)^{-1}X^T\mathbb{E}[y]\\
+    = (X^TX + \lambda I)^{-1}X^TX\beta\\
+\end{split}
+\end{equation}
+
+\subsubsection{2}
+\begin{equation}
+    Var[\hat{\beta}_{Ridge}] = \mathbb{E}[\hat{\beta}_{Ridge}^2] - \mathbb{E}[\hat{\beta}_{Ridge}]^2
+\end{equation}
+We already know $\mathbb{E}[\hat{\beta}_{Ridge}] = (X^TX + \lambda I)^{-1}X^TX\beta$.
+\newline
+\newline
+To make calculations easier, $Q = (X^TX+\lambda I)^{-1}$.
+\begin{equation}
+    \mathbb{E}[\hat{\beta}_{Ridge}]^2 = (Q^{-1}X^TX\beta)(Q^{-1}X^TX\beta)^T = Q^{-1}X^TX\beta\beta^TX^TX(Q^{-1})^T
+\end{equation}
+\begin{equation}
+\begin{split}
+    \mathbb{E}[\hat{\beta}_{Ridge}^2] = \mathbb{E}[(Q^{-1}X^Ty)(Q^{-1}X^Ty)^T]\\
+    = \mathbb{E}[Q^{-1}X^Tyy^TX(Q^{-1})^T]\\
+    = Q^{-1}X^T\mathbb{E}[yy^T]X(Q^{-1})^T
+\end{split}
+\end{equation}
+We know $\mathbb{E}[yy^T] = X\beta\beta^TX^T + \sigma^2$
+\begin{equation}
+    \begin{split}
+        Q^{-1}X^T\mathbb{E}[yy^T]XQ^{-1} = Q^{-1}X^T(X\beta\beta^TX^T + \sigma^2)X(Q^{-1})^T\\
+        = (Q^{-1}X^TX\beta\beta^TX^T + Q^{-1}X^T\sigma^2)X(Q^{-1})^T\\
+        = Q^{-1}X^TX\beta\beta^TX^TX(Q^{-1})^T + Q^{-1}X^T\sigma^2X(Q^{-1})^T
+    \end{split}
+\end{equation}
+Which means:
+\begin{equation}
+    \begin{split}
+        &Var[\hat{\beta}_{Ridge}]\\ 
+        &= Q^{-1}X^TX\beta\beta^TX^TX(Q^{-1})^T + Q^{-1}X^T\sigma^2X(Q^{-1})^T - \mathbb{E}[\hat{\beta}_{Ridge}]^2\\
+        &= Q^{-1}X^TX\beta\beta^TX^TX(Q^{-1})^T + Q^{-1}X^T\sigma^2X(Q^{-1})^T\\ &\quad- Q^{-1}X^TX\beta\beta^TX^TX(Q^{-1})^T\\
+        &= Q^{-1}X^T\sigma^2X(Q^{-1})^T\\
+        &= \sigma^2(X^TX+\lambda I)^{-1}X^TX((X^TX+\lambda I)^{-1})^T\
+    \end{split}
+\end{equation}
+
+\end{document}
